@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lossingdawn.top","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="Java 8曾经与Docker无法很好地兼容性，现在问题已消失。  请注意：我在本文中使用采用GNU GPL v2许可证的OpenJDK官方docker映像。在Oracle Java SE中，这里描述的docker支持功能在更新191中引入。Oracle在2019年4月更改了Java 8更新的许可证，自Java SE 8 Update 211以来商业使用不再免费。  你是否遇到过在docker中运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 8 终于支持 Docker！">
+<meta property="og:url" content="https://lossingdawn.top/p/zh-CN/42520.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Java 8曾经与Docker无法很好地兼容性，现在问题已消失。  请注意：我在本文中使用采用GNU GPL v2许可证的OpenJDK官方docker映像。在Oracle Java SE中，这里描述的docker支持功能在更新191中引入。Oracle在2019年4月更改了Java 8更新的许可证，自Java SE 8 Update 211以来商业使用不再免费。  你是否遇到过在docker中运">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARKBg3SHeB0WyqANTBoYoSjErQ69c7c8ibcNicomy2e1rADIc8Hrm0UV6Q/640?wx_fmt=jpeg">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVAR3nbPC13DHD9wW9ZfqIQCAH4oXlGiaVaFZPcl4r6DverFMIPZRFoMAsg/640?wx_fmt=jpeg">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARgJXSMB4nquC6u4pvbzXZeh85GRMP8OUDY1GMSuzsfewZBaTiace3EDw/640?wx_fmt=jpeg">
+<meta property="og:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARYsnlGiaMM2Tia6tSeDLo0ZFczPD2ichpOibFH0aHicoU5tjtdoXCic1TjNAw/640?wx_fmt=jpeg">
+<meta property="article:published_time" content="2019-07-22T02:09:00.000Z">
+<meta property="article:modified_time" content="2021-01-16T14:30:46.015Z">
+<meta property="article:author" content="Ruffianjiang">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARKBg3SHeB0WyqANTBoYoSjErQ69c7c8ibcNicomy2e1rADIc8Hrm0UV6Q/640?wx_fmt=jpeg">
+
+
+<link rel="canonical" href="https://lossingdawn.top/p/zh-CN/42520.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Java 8 终于支持 Docker！ | Hexo</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.png" alt="Hexo">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ruffianjiang</p>
+  <div class="site-description" itemprop="description">今天又是充满希望的一天</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ruffianjiang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ruffianjiang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jiangyj0516@outlook.com" title="E-Mail → mailto:jiangyj0516@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/LossingDawnn" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;LossingDawnn" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lossingdawn/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lossingdawn&#x2F;" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="hhttps://github.com/Ruffianjiang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lossingdawn.top/p/zh-CN/42520.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ruffianjiang">
+      <meta itemprop="description" content="今天又是充满希望的一天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 8 终于支持 Docker！
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-22 10:09:00" itemprop="dateCreated datePublished" datetime="2019-07-22T10:09:00+08:00">2019-07-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-16 22:30:46" itemprop="dateModified" datetime="2021-01-16T22:30:46+08:00">2021-01-16</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Java 8曾经与Docker无法很好地兼容性，现在问题已消失。</p>
+<p>请注意：我在本文中使用采用GNU GPL v2许可证的OpenJDK官方docker映像。在Oracle Java SE中，这里描述的docker支持功能在更新191中引入。Oracle在2019年4月更改了Java 8更新的许可证，自Java SE 8 Update 211以来商业使用不再免费。</p>
+<p>你是否遇到过在docker中运行的基于JVM的应用程序出现“随机”故障？或者也许是一些奇怪的死机？两者都可能是Java 8（仍广泛使用的）中糟糕的docker支持引起的。</p>
+<p>Docker使用控制组（cgroups）来限制资源。在容器中运行应用程序时限制内存和CPU绝对是个好主意――它可以阻止应用程序占用整个可用内存及/或CPU，这会导致在同一个系统上运行的其他容器毫无反应。限制资源可提高应用程序的可靠性和稳定性。它还允许为硬件容量作好规划。在Kubernetes或DC/OS之类的编排系统上运行容器时尤为重要。</p>
+<p><strong>问题</strong></p>
+<p>JVM可以“看到”系统上的整个内存和可用的所有CPU核心，并确保与资源一致。它默认情况下将最大堆大小（heap size）设置为系统内存的1/4，并将某些线程池大小（比如针对GC）设置为物理核心数量。不妨举例说明。</p>
+<p>我们将运行一个简单的应用程序，它消耗尽可能多的内存（可在该网站上找到）：</p>
+<p><img data-src="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARKBg3SHeB0WyqANTBoYoSjErQ69c7c8ibcNicomy2e1rADIc8Hrm0UV6Q/640?wx_fmt=jpeg" alt="img"></p>
+<p>我们在拥有64GB内存的系统上运行，所以不妨检查默认的最大堆大小：</p>
+<p>如上所述，它是物理内存的1/4即16GB。如果我们使用docker cgroups限制内存，会发生什么？不妨检查一下：</p>
+<p><img data-src="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVAR3nbPC13DHD9wW9ZfqIQCAH4oXlGiaVaFZPcl4r6DverFMIPZRFoMAsg/640?wx_fmt=jpeg" alt="img"></p>
+<p>JVM进程被杀死了。由于它是一个子进程――容器本身幸存下来，但通常当java是容器（PID 1）内的唯一进程时，容器会崩溃。</p>
+<p>不妨深入看看系统日志：</p>
+<p><img data-src="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARgJXSMB4nquC6u4pvbzXZeh85GRMP8OUDY1GMSuzsfewZBaTiace3EDw/640?wx_fmt=jpeg" alt="img"></p>
+<p><img data-src="https://mmbiz.qlogo.cn/mmbiz_jpg/9FiaOYU1BlzpXtUWdTElKp4aXXA6ahVARYsnlGiaMM2Tia6tSeDLo0ZFczPD2ichpOibFH0aHicoU5tjtdoXCic1TjNAw/640?wx_fmt=jpeg" alt="img"></p>
+<p>像这样的故障调试起来可能很难――应用程序日志中没有任何内容。在AWS ECS之类的托管系统上尤其困难重重。</p>
+<p>CPU怎么样？不妨再次检查，运行一个显示可用处理器数量的小程序：</p>
+<p>不妨在一个cpu编号设置为1的docker容器中运行它：</p>
+<p>不好，这个系统上的确有12个CPU。因此，即使可用处理器的数量限制为1，JVM也会尝试使用12――比如说，GC线程数量由该公式设置：</p>
+<p>在拥有N个硬件线程（N大于8）的机器上，并行收集器使用N的固定分数作为垃圾收集器线程的数量。如果N的值很大，该分数约5/8。如果N的值低于8，使用的数字是N。</p>
+<p>在我们的情况下：</p>
+<p><strong>解决方案</strong></p>
+<p>OK，我们现在意识到了这个问题。有解决方案吗？幸运的是，有！</p>
+<p>新的Java版本（10及以上版本）已经内置了docker支持功能。但有时升级不是办法，比如说如果应用程序与新JVM不兼容就不行。</p>
+<p>好消息：Docker支持还被向后移植到Java 8。不妨检查标记为8u212的最新openjdk映像。我们将内存限制为1G，并使用1个CPU：docker run -ti –cpus 1 -m 1G openjdk：8u212-jdk。</p>
+<p>内存：</p>
+<p>它是256M，正好是已分配内存的1/4。</p>
+<p>CPU：</p>
+<p>正如我们想要的那样。</p>
+<p>此外，还有几个新的设置：</p>
+<p>它们允许微调堆大小――这些设置的含义在StackOverflow的这个优秀答案中已得到了解释。请注意：他们设置的是百分比，而不是固定值。正因为如此，改变Docker内存设置不会破坏任何东西。</p>
+<p>如果由于某种原因不想要看到新的JVM行为，可以使用-XX：-UseContainerSupport来关闭。</p>
+<p><strong>总结</strong></p>
+<p>为基于JVM的应用程序设置正确的堆大小极其重要。如果使用最新的Java 8版本，你可以依赖安全（但非常保守）的默认设置。不需要在docker入口点中使用任何变通办法，也不需要再将Xmx设置为固定值。</p>
+<p>使用JVM愉快！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/donate/wechatpay.png" alt="Ruffianjiang 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/donate/alipay.png" alt="Ruffianjiang 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ruffianjiang
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lossingdawn.top/p/zh-CN/42520.html" title="Java 8 终于支持 Docker！">https://lossingdawn.top/p/zh-CN/42520.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/39944.html" rel="prev" title="微服务高可用方案">
+                  <i class="fa fa-chevron-left"></i> 微服务高可用方案
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/12305.html" rel="next" title="Restful Api设计">
+                  Restful Api设计 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zNzA2NC8xMzYwMA=="></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ruffianjiang</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4.8.3/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4.9.2/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "p/zh-CN/42520.html"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

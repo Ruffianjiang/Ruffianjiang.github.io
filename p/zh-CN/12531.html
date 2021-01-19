@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lossingdawn.top","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="本文内容来自互联网各种面试实例，以及自己的面试经历，主要是中级开发的面试题  初中级java面试主要分为几个部分：  0、序 1、java基础 2、 java多线程 3、 jvm知识 4、 spring等框架知识 5、 常用实践，如session同步 6、 其他知识，例如tomcat 7、 笔试算法   序言 首先，外貌要干净整洁，这个是必须的。其次守时，既不能晚点也不能早到，最好在约定时间的前十">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试题库(长期)">
+<meta property="og:url" content="https://lossingdawn.top/p/zh-CN/12531.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文内容来自互联网各种面试实例，以及自己的面试经历，主要是中级开发的面试题  初中级java面试主要分为几个部分：  0、序 1、java基础 2、 java多线程 3、 jvm知识 4、 spring等框架知识 5、 常用实践，如session同步 6、 其他知识，例如tomcat 7、 笔试算法   序言 首先，外貌要干净整洁，这个是必须的。其次守时，既不能晚点也不能早到，最好在约定时间的前十">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lossingdawn.top/">
+<meta property="og:image" content="https://lossingdawn.top/">
+<meta property="og:image" content="https://lossingdawn.top/">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142449996-360033997.jpg">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142450871-601807957.jpg">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142451699-1297214931.jpg">
+<meta property="article:published_time" content="2018-11-30T01:37:00.000Z">
+<meta property="article:modified_time" content="2021-01-16T14:30:46.013Z">
+<meta property="article:author" content="Ruffianjiang">
+<meta property="article:tag" content="java, 面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lossingdawn.top/">
+
+
+<link rel="canonical" href="https://lossingdawn.top/p/zh-CN/12531.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Java面试题库(长期) | Hexo</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.png" alt="Hexo">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81java%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">1、java基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81java%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">2、java多线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81jvm%E7%9F%A5%E8%AF%86"><span class="nav-number">4.</span> <span class="nav-text">3、jvm知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81spring%E7%AD%89%E6%A1%86%E6%9E%B6%E7%9F%A5%E8%AF%86"><span class="nav-number">5.</span> <span class="nav-text">4、spring等框架知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%B8%B8%E7%94%A8%E5%AE%9E%E8%B7%B5-session%E5%90%8C%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">5、常用实践,session同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E5%85%B6%E4%BB%96%E7%9F%A5%E8%AF%86-%E5%A6%82tomcat"><span class="nav-number">7.</span> <span class="nav-text">6、其他知识,如tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E7%AC%94%E8%AF%95%E7%AE%97%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">7、笔试算法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ruffianjiang</p>
+  <div class="site-description" itemprop="description">今天又是充满希望的一天</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ruffianjiang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ruffianjiang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jiangyj0516@outlook.com" title="E-Mail → mailto:jiangyj0516@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/LossingDawnn" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;LossingDawnn" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lossingdawn/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lossingdawn&#x2F;" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="hhttps://github.com/Ruffianjiang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lossingdawn.top/p/zh-CN/12531.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ruffianjiang">
+      <meta itemprop="description" content="今天又是充满希望的一天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java面试题库(长期)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-30 09:37:00" itemprop="dateCreated datePublished" datetime="2018-11-30T09:37:00+08:00">2018-11-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-16 22:30:46" itemprop="dateModified" datetime="2021-01-16T22:30:46+08:00">2021-01-16</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文内容来自互联网各种面试实例，以及自己的面试经历，主要是中级开发的面试题</p>
+<p>初中级java面试主要分为几个部分：</p>
+<p>0、序<br>1、<a href="">java基础</a><br>2、 <a href="">java多线程</a><br>3、 <a href="">jvm知识</a><br>4、 <a href="">spring等框架知识</a><br>5、 <a href="">常用实践，如session同步</a><br>6、 <a href="">其他知识，例如tomcat</a><br>7、 <a href="">笔试算法</a>  </p>
+<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>首先，外貌要干净整洁，这个是必须的。其次守时，既不能晚点也不能早到，最好在约定时间的前十分钟<br>面试主要分为几个部分，首先是java基础，这类占比</p>
+<p>较少<br>；其次是对java及spring框架的的深入理解，如多线程，ioc，apo，spring bean的生命周期，这类占比</p>
+<p>较重<br>；再往后就是常用的工具的理解，如jvm的常用配置，年轻代老年代，gc，tomcat等容器怎么处理请求，这类问题占比</p>
+<p>适中<br>；最后就是一些广度的问题(实际的经验)，对自己项目的理解，用到了那些工具，遇到了哪些问题,解决的方法<br>最后，一定要做一些面试的准备，刷面试题、练习面试，建议至少提前一个月做准备，机会是留给有准备的人的</p>
+<h2 id="1、java基础"><a href="#1、java基础" class="headerlink" title="1、java基础"></a>1、java基础</h2><p><strong>1.1、List、Set、Map的异同</strong><br><strong>List(列表)</strong></p>
+<p>List<br>的元素以线性方式存储，可以存放重复对象，List主要有以下两个实现类：</p>
+<dl><dt>ArrayList</dt><dd>长度可变的数组，可以对元素进行随机的访问，向ArrayList中插入与删除元素的速度慢。 JDK8 中ArrayList扩容的实现是通过grow()方法里使用语句newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1)（即1.5倍扩容）计算容量，然后调用Arrays.copyof()方法进行对原数组进行复制。</dd></dl><dl><dt>LinkedList</dt><dd>采用链表数据结构，插入和删除速度快，但访问速度慢。</dd></dl><p><strong>Set(集合)</strong></p>
+<p>Set<br>中的对象不按特定(HashCode)的方式排序，并且没有重复对象，Set主要有以下两个实现类：</p>
+<p>HashSet<br>： HashSet按照哈希算法来存取集合中的对象，存取速度比较快。当HashSet中的元素个数超过数组大小/*loadFactor（默认值为0.75）时，就会进行近似两倍扩容（newCapacity = (oldCapacity &lt;&lt; 1) + 1）。</p>
+<p>TreeSet<br>：TreeSet实现了SortedSet接口，能够对集合中的对象进行排序。</p>
+<p><strong>Map(映射)</strong></p>
+<p>Map<br>是一种把键对象和值对象映射的集合，它的每一个元素都包含一个键对象和值对象。 Map主要有以下两个实现类：</p>
+<p>HashMap<br>：HashMap基于散列表实现，其插入和查询&lt;K,V&gt;的开销是固定的，可以通过构造器设置容量和负载因子来调整容器的性能。<br>LinkedHashMap：类似于HashMap，但是迭代遍历它时，取得&lt;K,V&gt;的顺序是其插入次序，或者是最近最少使用(LRU)的次序。</p>
+<p>TreeMap<br>：TreeMap基于红黑树实现。查看&lt;K,V&gt;时，它们会被排序。TreeMap是唯一的带有subMap()方法的Map，subMap()可以返回一个子树。<br>比较 List Set Map 继承接口 Collection Collection 常见实现类 AbstractList(其常用子类有ArrayList、LinkedList、Vector) AbstractSet(其常用子类有HashSet、LinkedHashSet、TreeSet) HashMap、HashTable 常见方法 add( )、remove( )、clear( )、get( )、contains( )、size( ) add( )、remove( )、clear( )、contains( )、size( ) put( )、get()、remove( )、clear( )、containsKey( )、containsValue( )、keySet( )、values( )、size( ) 元素 可重复 不可重复(用<br>equals()判断) 不可重复 顺序 有序 无序(实际上由HashCode决定) 线程安全 Vector线程安全  Hashtable线程安全</p>
+<p><strong>1.2、String、StringBuffer、StringBuilder的使用</strong></p>
+<p><strong>1.3、HashMap、TreeMap、LinkedHashMap的特点</strong></p>
+<p><strong>1.4、HashMap内部结构、算法</strong><br><strong>底层实现</strong>：HashMap底层整体结构是一个数组，数组中的每个元素又是一个链表。每次添加一个对象（put）时会产生一个链表对象（Object类型），Map中的每个Entry就是数组中的一个元素（Map.Entry就是一个&lt;Key,Value&gt;），它具有由当前元素指向下一个元素的引用，这就构成了链表。<br><strong>存储原理</strong>：当向HsahMap中添加元素的时候，先根据HashCode重新计算Key的Hash值，得到数组下标，如果数组该位置已经存在其他元素，那么这个位置的元素将会以链表的形式存放，新加入的放在链头，最先加入的放在链尾，如果数组该位置元素不存在，那么就直接将该元素放到此数组中的该位置。<br><strong>去重原理</strong>：不同的Key算到数组下标相同的几率很小，新建一个&lt;K,V&gt;放入到HashMap的时候，首先会计算Key的数组下标，如果数组该位置已经存在其他元素，则比较两个Key，若相同则覆盖写入，若不同则形成链表。<br><strong>读取原理</strong>：从HashMap中读取（get）元素时，首先计算Key的HashCode，找到数组下标，然后在对应位置的链表中找到需要的元素。<br><strong>扩容机制</strong>：当HashMap中的元素个数超过数组大小/*loadFactor（默认值为0.75）时，就会进行2倍扩容（oldThr &lt;&lt; 1）。  </p>
+<p><strong>1.5、concurrent包下面有那几大类</strong><br>atomic<br>locks<br>Executor<br>Queue<br>Dueue<br>ConcurrentXX<br>Scheduled<br>Callable<br>Future  </p>
+<h2 id="2、java多线程"><a href="#2、java多线程" class="headerlink" title="2、java多线程"></a>2、java多线程</h2><p><strong>2.1、lock和synchronized</strong></p>
+<p>synchronized是java中的一个关键字，也就是说是Java语言内置的特性。那么为什么会出现Lock呢？</p>
+<p>在上面一篇文章中，我们了解到如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：</p>
+<p>1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；</p>
+<p>2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+<p>那么如果这个获取锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，其他线程便只能干巴巴地等待，试想一下，这多么影响程序执行效率。</p>
+<p>因此就需要有一种机制可以不让等待的线程一直无期限地等待下去（比如只等待一定的时间或者能够响应中断），通过Lock就可以办到。</p>
+<p>再举个例子：当有多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作会发生冲突现象，但是读操作和读操作不会发生冲突现象。</p>
+<p>但是采用synchronized关键字来实现同步的话，就会导致一个问题：</p>
+<p>如果多个线程都只是进行读操作，所以当一个线程在进行读操作时，其他线程只能等待无法进行读操作。</p>
+<p>因此就需要一种机制来使得多个线程都只是进行读操作时，线程之间不会发生冲突，通过Lock就可以办到。</p>
+<p>另外，通过Lock可以知道线程有没有成功获取到锁。这个是synchronized无法办到的。</p>
+<p>总结一下，也就是说Lock提供了比synchronized更多的功能。但是要注意以下几点：</p>
+<p>1）Lock不是Java语言内置的，synchronized是Java语言的关键字，因此是内置特性。Lock是一个类，通过这个类可以实现同步访问；</p>
+<p>2）Lock和synchronized有一点非常大的不同，采用synchronized不需要用户去手动释放锁，当synchronized方法或者synchronized代码块执行完之后，系统会自动让线程释放对锁的占用；而Lock则必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象。</p>
+<p>Lock是一个接口，而synchronized是关键字。<br>synchronized会自动释放锁，而Lock必须手动释放锁。<br>Lock可以让等待锁的线程响应中断，而synchronized不会，线程会一直等待下去。<br>通过Lock可以知道线程有没有拿到锁，而synchronized不能。<br>Lock能提高多个线程读操作的效率。  </p>
+<p>synchronized能锁住类、方法和代码块，而Lock是块范围内的</p>
+<p>第一大不足：由于我们没办法设置synchronized关键字在获取锁的时候等待时间，所以synchronized可能会导致线程为了加锁而无限期地处于阻塞状态。</p>
+<p>第二大不足：使用synchronized关键字等同于使用了互斥锁，即其他线程都无法获得锁对象的访问权。这种策略对于读多写少的应用而言是很不利的，因为即使多个读者看似可以并发运行，但他们实际上还是串行的，并将最终导致并发性能的下降。</p>
+<p>虽然synchronized已经作为一个关键字被固化在Java语言中了，但它只提供了一种相当保守的线程安全策略，且该策略开放给程序员的控制能力极弱。</p>
+<p><strong>2.2、单机上一个线程池正在处理服务，如果忽然断电了怎么办（正在处理和阻塞队列里的请求怎么处理）？</strong></p>
+<p><strong>2.3、为什么要使用线程池？</strong></p>
+<p>在Java中，如果每当一个请求到达就创建一个新线程，开销是相当大的。在实际使用中，每个请求创建新线程的服务器在创建和销毁线程上花费的时间和消耗的系统资源，甚至可能要比花在处理实际的用户请求的时间和资源要多得多。除了创建和销毁线程的开销之外，活动的线程也需要消耗系统资源。如果在一个JVM里创建太多的线程，可能会导致系统由于过度消耗内存或“切换过度”而导致系统资源不足。为了防止资源不足，服务器应用程序需要一些办法来限制任何给定时刻处理的请求数目，尽可能减少创建和销毁线程的次数，特别是一些资源耗费比较大的线程的创建和销毁，尽量利用已有对象来进行服务，这就是“池化资源”技术产生的原因。</p>
+<p><strong>2.4、线程池有什么作用？</strong></p>
+<p>线程池主要用来解决线程生命周期开销问题和资源不足问题。通过对多个任务重用线程，线程创建的开销就被分摊到了多个任务上了，而且由于在请求到达时线程已经存在，所以消除了线程创建所带来的延迟。这样，就可以立即为请求服务，使应用程序响应更快。另外，通过适当地调整线程池中的线程数目可以防止出现资源不足的情况。</p>
+<pre><code class="highlight plain">1.使用new Thread()创建线程的弊端：  
+每次通过new Thread()创建对象性能不佳。  
+线程缺乏统一管理，可能无限制新建线程，相互之间竞争，及可能占用过多系统资源导致死机或oom。  
+缺乏更多功能，如定时执行、定期执行、线程中断。  
+
+2.使用Java线程池的好处：
+重用存在的线程，减少对象创建、消亡的开销，提升性能。  
+可有效控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。  
+提供定时执行、定期执行、单线程、并发数控制等功能。</code></pre>
+<p><strong>2.5、说说几种常见的线程池及使用场景。</strong><br>场景：<br>单个任务处理时间短<br>将需处理的任务数量大</p>
+<p><strong>2.6、线程池都有哪几种工作队列？</strong><br>ArrayBlockingQueue 数组型阻塞队列<br>LinkedBlockingQueue 链表型阻塞队列<br>DelayQueue 延时队列<br>SynchronousQueue 同步队列<br>PriorityBlockingQueue 优先阻塞队列</p>
+<p><strong>2.7、怎么理解无界队列和有界队列？</strong><br>有界队列：<br>1.初始的poolSize &lt; corePoolSize，提交的runnable任务，会直接做为new一个Thread的参数，立马执行 。</p>
+<p>2.当提交的任务数超过了corePoolSize，会将当前的runable提交到一个block queue中,。</p>
+<p>3.有界队列满了之后，如果poolSize &lt; maximumPoolsize时，会尝试new 一个Thread的进行救急处理，立马执行对应的runnable任务。</p>
+<p>4.如果3中也无法处理了，就会走到第四步执行reject操作。</p>
+<p>与有界队列相比，除非系统资源耗尽，否则无界的任务队列不存在任务入队失败的情况。当有新的任务到来，系统的线程数小于corePoolSize时，则新建线程执行任务。当达到corePoolSize后，就不会继续增加，若后续仍有新的任务加入，而没有空闲的线程资源，则任务直接进入队列等待。若任务创建和处理的速度差异很大，无界队列会保持快速增长，直到耗尽系统内存。</p>
+<p><strong>2.8、线程池中的几种重要的参数及流程说明</strong></p>
+<p>中止<br>：Abort策略，默认策略，新任务提交时直接抛出未检查的异常RejectedExecutionException，该异常可由调用者捕获。</p>
+<p>抛弃<br>：Discard策略，新提交的任务被抛弃。</p>
+<p>抛弃最旧的<br>：DiscardOldest策略，队列的是“队头”的任务，然后尝试提交新的任务。（不适合工作队列为优先队列场景）</p>
+<p>调用者运行<br>： CallerRuns策略，为调节机制，既不抛弃任务也不抛出异常，而是将某些任务回退到调用者。不会在线程池的线程中执行新的任务，而是在调用exector的线程中运行新的任务。</p>
+<p><strong>2.9、线程池中的几种重要的参数及流程说明</strong></p>
+<pre><code class="highlight plain">public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue&lt;Runnable&gt; workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) &#123;
+       ...
+    &#125;</code></pre>
+<p>corePoolSize</p>
+<ul>
+<li>池中所保存的线程数，包括空闲线程。需要注意的是在初创建线程池时线程不会立即启动，直到有任务提交才开始启动线程并逐渐时线程数目达到corePoolSize。若想一开始就创建所有核心线程需调用prestartAllCoreThreads方法。</li>
+</ul>
+<p>maximumPoolSize<br>-池中允许的最大线程数。需要注意的是当核心线程满且阻塞队列也满时才会判断当前线程数是否小于最大线程数，并决定是否创建新线程。</p>
+<p>keepAliveTime</p>
+<ul>
+<li>当线程数大于核心时，多于的空闲线程最多存活时间</li>
+</ul>
+<p>unit</p>
+<ul>
+<li>keepAliveTime 参数的时间单位。</li>
+</ul>
+<p>workQueue</p>
+<ul>
+<li>当线程数目超过核心线程数时用于保存任务的队列。主要有3种类型的BlockingQueue可供选择：无界队列，有界队列和同步移交。将在下文中详细阐述。从参数中可以看到，此队列仅保存实现Runnable接口的任务。</li>
+</ul>
+<p>threadFactory</p>
+<ul>
+<li>执行程序创建新线程时使用的工厂。</li>
+</ul>
+<p>handler</p>
+<ul>
+<li>阻塞队列已满且线程数达到最大值时所采取的饱和策略。java默认提供了4种饱和策略的实现方式：中止、抛弃、抛弃最旧的、调用者运行。将在下文中详细阐述。</li>
+</ul>
+<p><strong>2.10、线程和cpu核心数的关系</strong>  </p>
+<p>线程数=Ncpu / (1-阻塞系数)<br>IO密集型，阻塞系数接近于1<br>计算密集型，阻塞系数接近于0  </p>
+<h2 id="3、jvm知识"><a href="#3、jvm知识" class="headerlink" title="3、jvm知识"></a>3、jvm知识</h2><p><strong>3.1、happened-before原则</strong></p>
+<p>1.程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作</p>
+<p>2.监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁</p>
+<p>3.volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读</p>
+<p>4.传递性：如果A happens-before B，且B happens-before C，那么A happens-before C</p>
+<p>5.start规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作</p>
+<p>6.join规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回</p>
+<p><strong>3.2、类的加载</strong></p>
+<p><img data-src="/" alt="image"><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wen7280/article/details/53856790">https://blog.csdn.net/wen7280/article/details/53856790</a></p>
+<p>类装载的条件：</p>
+<p>Java虚拟机不会无条件的装载Class类型。</p>
+<p>Java虚拟机规定：一个类或者接口在初次使用时，必须进行初始化。</p>
+<p>这里的使用指的是主动使用，主动使用有以下几种情况：</p>
+<p>当创建一个类的实例时，比如使用new关键字，或者通过反射、克隆、反序列化方式。</p>
+<p>当调用类的静态方法时，即当使用了字节码invokestatic指令  </p>
+<p>当使用类或者接口的静态字段时（final常量除外，此种情况只会加载类而不会进行初始化），即使用getstatic或者putstatic指令（可以使用jclasslib软件查看生成的字节码文件）</p>
+<p>当使用java.lang.reflect包中的方法反射类的方法时</p>
+<p>当初始化子类时，必须先初始化父类</p>
+<p>作为启动虚拟机、含有main方法的那个类</p>
+<p>除了以上情况属于主动使用外，其他情况均属于被动使用，被动使用不会引起类的初始化，只是加载了类却没有初始化。</p>
+<h2 id="4、spring等框架知识"><a href="#4、spring等框架知识" class="headerlink" title="4、spring等框架知识"></a>4、spring等框架知识</h2><p><strong>4.1、spring mvc处理请求</strong></p>
+<p><img data-src="/" alt="image"></p>
+<p>SpringMVC核心处理流程：</p>
+<p>1、DispatcherServlet前端控制器接收发过来的请求，交给HandlerMapping处理器映射器</p>
+<p>2、HandlerMapping处理器映射器，根据请求路径找到相应的HandlerAdapter处理器适配器（处理器适配器就是那些拦截器或Controller）</p>
+<p>3、HandlerAdapter处理器适配器，处理一些功能请求，返回一个ModelAndView对象（包括模型数据、逻辑视图名）</p>
+<p>4、ViewResolver视图解析器，先根据ModelAndView中设置的View解析具体视图</p>
+<p>5、然后再将Model模型中的数据渲染到View上</p>
+<p><strong>4.2、Springbootapplication注解的原理</strong></p>
+<p><img data-src="/" alt="image"></p>
+<p><a target="_blank" rel="noopener" href="http://majunwei.com/view/201708231840127244.html">http://majunwei.com/view/201708231840127244.html</a></p>
+<h2 id="5、常用实践-session同步"><a href="#5、常用实践-session同步" class="headerlink" title="5、常用实践,session同步"></a>5、常用实践,session同步</h2><p><strong>5.1、session同步</strong></p>
+<p>使用redis作为session持久化存储。首先用户连接进来，把session放在本地一份，redis一份，在本地有记录的情况下使用本地缓存(设置极小的时间过期，如2s)。当用户再次连接进来，在本地记录过期，或者本地没有session的情况下，使用redis的记录，</p>
+<p><strong>5.2、redis的简单介绍</strong></p>
+<p><strong>5.3、缓存的使用</strong></p>
+<h2 id="6、其他知识-如tomcat"><a href="#6、其他知识-如tomcat" class="headerlink" title="6、其他知识,如tomcat"></a>6、其他知识,如tomcat</h2><p><strong>6.1、tomcat如何处理请求</strong></p>
+<p><img data-src="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142449996-360033997.jpg" alt="http://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142449996-360033997.jpg"><br>Tomcat的两个核心组件：Connector 和 Container</p>
+<p><strong>1.Connector组件</strong></p>
+<p>Connector组件将在某个指定的端口上侦听客户请求，接收浏览器发过来的tcp连接请求，创建一个Request和一个Response对象分别用于和其你去端交换数据，然后会产生一个线程来处理这个请求并把产生的Request和Response对象传给Engine，从Engine中获得响应并返回给客户端。</p>
+<p>Tomcat有两个经典的Connector，一个直接侦听来自浏览器的HTTP请求，另外一个侦听来自其他的WebServer的请求。Cotote HTTP/1.1 Connector在端口8080处侦听来自客户浏览器的HTTP请求，Coyote JK2 Connector在端口8009处侦听其他WebServer的Servlet/JSP请求。 Connector 最重要的功能就是接收连接请求然后分配线程让 Container来处理这个请求，所以这必然是多线程的，多线程的处理是 Connector 设计的核心</p>
+<p><strong>2.Container组件</strong></p>
+<p>Container组件的体系结构如下：<br><img data-src="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142450871-601807957.jpg" alt="http://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142450871-601807957.jpg"></p>
+<p>Container</p>
+<p>Container是容器的父接口，该容器的设计用的是典型的责任链的设计模式，它由四个自容器组件构成，分别是Engine、Host、Context、Wrapper。这四个组件是负责关系，存在包含关系。通常一个Servlet class对应一个Wrapper，如果有多个Servlet则定义多个Wrapper，如果有多个Wrapper就要定义一个更高的Container，如Context。 Context定义在父容器 Host 中，其中Host 不是必须的，但是要运行 war 程序，就必须要 Host，因为 war 中必有 web.xml 文件，这个文件的解析就需要 Host 了，如果要有多个 Host 就要定义一个 top 容器 Engine 了。而 Engine 没有父容器了，一个 Engine 代表一个完整的 Servlet 引擎。</p>
+<p>Engine</p>
+<p>Engine 容器比较简单，它只定义了一些基本的关联关系 Host 容器</p>
+<p>Host</p>
+<p>Host 是 Engine 的字容器，一个 Host 在 Engine 中代表一个虚拟主机，这个虚拟主机的作用就是运行多个应用，它负责安装和展开这些应用，并且标识这个应用以便能够区分它们。它的子容器通常是 Context，它除了关联子容器外，还有就是保存一个主机应该有的信息。</p>
+<p>Context</p>
+<p>Context 代表 Servlet 的 Context，它具备了 Servlet 运行的基本环境，理论上只要有 Context 就能运行 Servlet 了。简单的 Tomcat 可以没有 Engine 和 Host。Context 最重要的功能就是管理它里面的 Servlet 实例，Servlet 实例在 Context 中是以 Wrapper 出现的，还有一点就是 Context 如何才能找到正确的 Servlet 来执行它呢？ Tomcat5 以前是通过一个 Mapper 类来管理的，Tomcat5 以后这个功能被移到了 request 中，在前面的时序图中就可以发现获取子容器都是通过 request 来分配的</p>
+<p>Wrapper</p>
+<p>Wrapper 代表一个 Servlet，它负责管理一个 Servlet，包括的 Servlet 的装载、初始化、执行以及资源回收。Wrapper 是最底层的容器，它没有子容器了，所以调用它的 addChild 将会报错。 Wrapper 的实现类是 StandardWrapper，StandardWrapper 还实现了拥有一个 Servlet 初始化信息的 ServletConfig，由此看出 StandardWrapper 将直接和 Servlet 的各种信息打交道。<br>说明：除了上述组件外，Tomcat中还有其他重要的组件，如安全组件security、logger日志组件、session、mbeans、naming等其他组件。这些组件共同为Connector和Container提供必要的服务。</p>
+<p>完整请求过程如下：</p>
+<p><img data-src="https://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142451699-1297214931.jpg" alt="http://images2017.cnblogs.com/blog/1131840/201712/1131840-20171215142451699-1297214931.jpg"></p>
+<p>1.用户在浏览器中输入网址localhost:8080/test/index.jsp，请求被发送到本机端口8080，被在那里监听的Coyote HTTP/1.1 Connector获得；</p>
+<p>2.Connector把该请求交给它所在的Service的Engine（Container）来处理，并等待Engine的回应；</p>
+<p>3.Engine获得请求localhost/test/index.jsp，匹配所有的虚拟主机Host；</p>
+<p>4.Engine匹配到名为localhost的Host（即使匹配不到也把请求交给该Host处理，因为该Host被定义为该Engine的默认主机），名为localhost的Host获得请求/test/index.jsp，匹配它所拥有的所有Context。Host匹配到路径为/test的Context（如果匹配不到就把该请求交给路径名为“ ”的Context去处理）；</p>
+<p>5.path=“/test”的Context获得请求/index.jsp，在它的mapping table中寻找出对应的Servlet。Context匹配到URL Pattern为/*.jsp的Servlet，对应于JspServlet类；</p>
+<p>6.构造HttpServletRequest对象和HttpServletResponse对象，作为参数调用JspServlet的doGet()或doPost(),执行业务逻辑、数据存储等；</p>
+<p>7.Context把执行完之后的HttpServletResponse对象返回给Host；</p>
+<p>8.Host把HttpServletResponse对象返回给Engine；</p>
+<p>9.Engine把HttpServletResponse对象返回Connector；</p>
+<p>10.Connector把HttpServletResponse对象返回给客户Browser。</p>
+<h2 id="7、笔试算法"><a href="#7、笔试算法" class="headerlink" title="7、笔试算法"></a>7、笔试算法</h2><p><strong>7.1、</strong></p>
+<p><strong>7.2、</strong></p>
+<p><strong>7.3、</strong></p>
+<p><strong>7.4、让您做一个电商平台，您如何设置一个在买家下订单后的”第60秒“发短信通知卖家发货，您需要考虑的是 像淘宝一样的大并发量的订单。</strong></p>
+<p>1、具有排序功能的队列</p>
+<p>2、Redis+定时器</p>
+<p>3、队列，死信</p>
+<p>参考地址：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Dzv-i8n7waJVac-N7MJCvA">https://mp.weixin.qq.com/s/Dzv-i8n7waJVac-N7MJCvA</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/donate/wechatpay.png" alt="Ruffianjiang 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/donate/alipay.png" alt="Ruffianjiang 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ruffianjiang
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lossingdawn.top/p/zh-CN/12531.html" title="Java面试题库(长期)">https://lossingdawn.top/p/zh-CN/12531.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java-%E9%9D%A2%E8%AF%95/" rel="tag"># java, 面试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/18860.html" rel="prev" title="RSA Premaster Secret Error 错误解决">
+                  <i class="fa fa-chevron-left"></i> RSA Premaster Secret Error 错误解决
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/50457.html" rel="next" title="理解 Spring 定时任务的 fixedRate 和 fixedDelay 的区别">
+                  理解 Spring 定时任务的 fixedRate 和 fixedDelay 的区别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zNzA2NC8xMzYwMA=="></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ruffianjiang</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4.8.3/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4.9.2/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "p/zh-CN/12531.html"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

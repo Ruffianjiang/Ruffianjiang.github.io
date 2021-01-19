@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lossingdawn.top","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="android.permission.ACCESS_CHECKIN_PROPERTIES 允许读写访问”properties”表在checkin数据库中，改值可以修改上传  android.permission.ACCESS_COARSE_LOCATION 允许一个程序访问CellID或WiFi来获取粗略的位置  android.permission.ACCESS_FINE_LOCATION 允许">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uses-Permission权限列表">
+<meta property="og:url" content="https://lossingdawn.top/p/zh-CN/50489.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="android.permission.ACCESS_CHECKIN_PROPERTIES 允许读写访问”properties”表在checkin数据库中，改值可以修改上传  android.permission.ACCESS_COARSE_LOCATION 允许一个程序访问CellID或WiFi来获取粗略的位置  android.permission.ACCESS_FINE_LOCATION 允许">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-04-08T03:55:00.000Z">
+<meta property="article:modified_time" content="2021-01-16T14:30:46.010Z">
+<meta property="article:author" content="Ruffianjiang">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lossingdawn.top/p/zh-CN/50489.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Uses-Permission权限列表 | Hexo</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/images/logo.png" alt="Hexo">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container">
+  <div class="algolia-stats"><hr></div>
+  <div class="algolia-hits"></div>
+  <div class="algolia-pagination"></div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Ruffianjiang</p>
+  <div class="site-description" itemprop="description">今天又是充满希望的一天</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Ruffianjiang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Ruffianjiang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jiangyj0516@outlook.com" title="E-Mail → mailto:jiangyj0516@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/LossingDawnn" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;LossingDawnn" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/lossingdawn/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lossingdawn&#x2F;" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="hhttps://github.com/Ruffianjiang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lossingdawn.top/p/zh-CN/50489.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ruffianjiang">
+      <meta itemprop="description" content="今天又是充满希望的一天">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Uses-Permission权限列表
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2015-04-08 11:55:00" itemprop="dateCreated datePublished" datetime="2015-04-08T11:55:00+08:00">2015-04-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-16 22:30:46" itemprop="dateModified" datetime="2021-01-16T22:30:46+08:00">2021-01-16</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <pre><code class="highlight plain">android.permission.ACCESS_CHECKIN_PROPERTIES
+允许读写访问”properties”表在checkin数据库中，改值可以修改上传
+
+android.permission.ACCESS_COARSE_LOCATION
+允许一个程序访问CellID或WiFi来获取粗略的位置
+
+android.permission.ACCESS_FINE_LOCATION
+允许一个程序访问精良位置(如GPS)
+
+android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+允许应用程序访问额外的位置提供命令
+
+android.permission.ACCESS_MOCK_LOCATION
+允许程序创建模拟位置用于测试
+
+android.permission.ACCESS_NETWORK_STATE
+允许程序访问有关的网络信息
+
+android.permission.ACCESS_SURFACE_FLINGER
+允许程序使用SurfaceFlinger底层特性
+
+android.permission.ACCESS_WIFI_STATE
+允许程序访问Wi-Fi网络状态信息
+
+android.permission.ACCOUNT_MANAGER
+允许一个应用程序启动账户认证，该权限只能系统去设置
+
+android.permission.AUTHENTICATE_ACCOUNTS
+允许应用程序的验证账户扮演一个账户管理者
+
+android.permission.BATTERY_STATS
+允许程序更新手机电池统计信
+
+android.permission.BIND_APPWIDGET
+许应用告诉AppWidget哪个应用能够访问该AppWidget的数据
+
+android.permission.BIND_DEVICE_ADMIN
+必须通过关机接收者的请求，来确保只有系统能够与之交互
+
+android.permission.BIND_INPUT_METHOD
+必须通过InputMethodService的请求，来确保只有系统能够与之绑定
+
+android.permission.BIND_WALLPAPER
+必须通过WallpaperService的请求，来确保只有系统能够与之绑定
+
+android.permission.BLUETOOTH
+允许程序连接到已配对的蓝牙设备
+
+android.permission.BLUETOOTH_ADMIN
+允许程序发现和配对蓝牙设备
+
+android.permission.BRICK
+请求能够禁用设备(非常危险)
+
+android.permission.BROADCAST_PACKAGE_REMOVED
+允许应用发出一个程序包被移除的广播消息
+
+android.permission.BROADCAST_SMS
+允许应用发出一个收到短信的消息
+
+android.permission.BROADCAST_STICKY
+允许应用发出一个与intent相连的消息
+
+ 
+
+android.permission.BROADCAST_WAP_PUSH
+允许应用发出一个收到WAP PUSH的广播消息
+
+android.permission.CALL_PHONE
+允许一个程序初始化一个电话拨号，不需通过拨号用户界面需要用户确认
+
+android.permission.CALL_PRIVILEGED
+允许一个程序拨打任何号码，包含紧急号码无需通过拨号用户界面需要用户确认
+
+android.permission.CAMERA
+请求访问使用照相设备
+
+android.permission.CHANGE_COMPONENT_ENABLED_STATE
+允许一个程序是否改变一个组件或其他的启用或禁用
+
+android.permission.CHANGE_CONFIGURATION
+允许一个程序修改当前设置，如本地化
+
+android.permission.CHANGE_NETWORK_STATE
+允许程序改变网络连接状态
+
+android.permission.CHANGE_WIFI_STATE
+允许程序改变Wi-Fi连接状态
+
+android.permission.CLEAR_APP_CACHE
+允许一个程序在设备中清除所有安装的程序的缓存
+
+android.permission.CLEAR_APP_USER_DATA
+允许一个程序清除用户数据
+
+android.permission.CONTROL_LOCATION_UPDATES
+允许启用禁止位置更新提示从无线模块
+
+android.permission.DELETE_CACHE_FILES
+允许程序删除缓存文件
+
+android.permission.DELETE_PACKAGES
+允许一个程序删除包
+
+android.permission.DEVICE_POWER
+允许访问底层电源管理
+
+android.permission.DIAGNOSTIC
+允许程序RW诊断资源
+
+android.permission.DISABLE_KEYGUARD
+允许程序禁用键盘锁
+
+android.permission.DUMP
+允许程序返回状态抓取信息从系统服务
+
+android.permission.EXPAND_STATUS_BAR
+允许一个程序扩展收缩在状态栏,android开发网提示应该是一个类似Windows Mobile中的托盘程序
+
+android.permission.FACTORY_TEST
+作为一个工厂测试程序，运行在root用户
+
+android.permission.FLASHLIGHT
+允许访问闪光灯,其中HTC Dream不包含闪光灯
+
+android.permission.FORCE_BACK
+
+允许应用强制执行返回操作而不论是不是最终的activity
+
+ 
+
+android.permission.GET_ACCOUNTS
+允许访问在Accounts Service中的一个帐户列表
+
+android.permission.GET_PACKAGE_SIZE
+允许一个程序获取任何package占用空间容量
+
+android.permission.GET_TASKS
+允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等
+
+android.permission.GLOBAL_SEARCH
+
+可以被内容提供者用来允许使用全程搜索他们的数据
+
+android.permission.HARDWARE_TEST
+允许访问硬件
+
+android.permission.INJECT_EVENTS
+允许一个程序截获用户事件如按键、触摸、轨迹球等等到一个时间流
+
+android.permission.INSTALL_PACKAGES
+允许一个程序安装packages
+
+android.permission.INTERNAL_SYSTEM_WINDOW
+允许打开窗口使用系统用户界面
+
+android.permission.INTERNET
+允许程序打开网络sockets
+
+android.permission.KILL_BACKGROUND_PROCESSES
+
+允许应用去呼叫killBackgroundProcesses方法
+
+android.permission.MANAGE_ACCOUNTS
+允许程序去管理账户列表(在账户管理者中)
+
+android.permission.MANAGE_APP_TOKENS
+允许程序管理(创建、催后、 z- order默认向z轴推移)程序引用在窗口管理器中
+
+android.permission.MASTER_CLEAR
+
+目前还没有明确的解释
+
+android.permission.MODIFY_AUDIO_SETTINGS
+允许程序修改全局音频设置
+
+android.permission.MODIFY_PHONE_STATE
+允许修改话机状态，如电源，人机接口等
+
+android.permission.MODIFY_FORMAT_FILESYSTEMS
+
+允许格式化可移除的存储仓库的文件系统
+
+android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+允许挂载和反挂载文件系统可移动存储
+
+android.permission.PERSISTENT_ACTIVITY
+允许一个程序设置他的activities显示
+
+android.permission.PROCESS_OUTGOING_CALLS
+允许程序监视、修改有关播出电话
+
+android.permission.READ_CALENDAR
+允许程序读取用户日历数据
+
+android.permission.READ_CONTACTS
+允许程序读取用户联系人数据
+
+android.permission.READ_FRAME_BUFFER
+允许程序屏幕波或和更多常规的访问帧缓冲数据
+
+android.permission.READ_HISTORY_BOOKMARKS
+允许应用去读取(非写)用户浏览历史和书签
+
+android.permission.READ_INPUT_STATE
+允许程序返回当前按键状态
+
+android.permission.READ_LOGS
+允许程序读取底层系统日志文件
+
+android.permission.READ_OWNER_DATA
+允许程序读取所有者数据
+
+android.permission.READ_PHONE_STATE
+允许读取电话的状态
+
+android.permission.READ_SMS
+允许程序读取短信息(Allows an application to read SMS messages.)
+
+android.permission.READ_SYNC_SETTINGS
+允许程序读取同步设置
+
+android.permission.READ_SYNC_STATS
+允许程序读取同步状态
+
+android.permission.REBOOT
+请求能够重新启动设备
+
+android.permission.RECEIVE_BOOT_COMPLETED
+允许一个程序接收到 ACTION_BOOT_COMPLETED广播在系统完成启动
+
+android.permission.RECEIVE_MMS
+允许一个程序监控将收到MMS彩信,记录或处理
+
+android.permission.RECEIVE_SMS
+允许程序监控一个将收到短信息，记录或处理
+
+android.permission.RECEIVE_WAP_PUSH
+允许程序监控将收到WAP PUSH信息
+
+android.permission.RECORD_AUDIO
+允许程序录制音频
+
+android.permission.REORDER_TASKS
+允许程序改变Z轴排列任务
+
+android.permission.RESTART_PACKAGES
+允许程序重新启动其他程序(此值已废弃使用)
+
+android.permission.SEND_SMS
+允许程序发送SMS短信
+
+android.permission.SET_ACTIVITY_WATCHER
+允许程序监控或控制activities已经启动全局系统中
+
+android.permission.SET_ALWAYS_FINISH
+允许程序控制是否活动间接完成在处于后台时
+
+android.permission.SET_ANIMATION_SCALE
+修改全局信息比例
+
+android.permission.SET_DEBUG_APP
+配置一个程序用于调试
+
+android.permission.SET_ORIENTATION
+允许底层访问设置屏幕方向和实际旋转
+
+android.permission.SET_PREFERRED_APPLICATIONS
+允许一个程序修改列表参数PackageManager.addPackageToPreferred()和PackageManager.removePackageFromPreferred()方法
+
+ 
+
+android.permission.SET_PROCESS_LIMIT
+允许设置最大的运行进程数量
+
+android.permission.SET_TIME
+允许应用设置系统时间
+
+android.permission.SET_TIME_ZONE
+允许程序设置系统时区时间
+
+android.permission.SET_WALLPAPER
+允许程序设置壁纸
+
+ 
+
+android.permission.SET_WALLPAPER_HINTS
+允许程序设置壁纸hits
+
+android.permission.SIGNAL_PERSISTENT_PROCESSES
+允许程序请求发送信号到所有显示的进程中
+
+android.permission.STATUS_BAR
+允许程序打开、关闭或禁用状态栏及图标
+
+android.permission.SUBSCRIBED_FEEDS_READ
+允许一个程序访问订阅RSS Feed内容提供
+
+android.permission.SUBSCRIBED_FEEDS_WRITE
+系统暂时保留改设置,
+
+android.permission.SYSTEM_ALERT_WINDOW
+允许一个程序打开窗口使用 TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层
+
+android.permission.UPDATE_DEVICE_STATS
+允许应用更新设备资料信息
+
+android.permission.USE_CREDENTIALS
+允许应用从管理器得到授权请求
+
+android.permission.VIBRATE
+允许访问振动设备
+
+android.permission.WAKE_LOCK
+允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失
+
+ 
+
+android.permission.WRITE_APN_SETTINGS
+允许程序写入API设置
+
+android.permission.WRITE_CALENDAR
+允许一个程序写入但不读取用户日历数据
+
+android.permission.WRITE_CONTACTS
+允许程序写入但不读取用户联系人数据
+
+android.permission.WRITE_EXTERNAL_STORAGE
+允许应用写（非读）用户的外部存储器
+
+android.permission.WRITE_GSERVICES
+允许程序修改Google服务地图
+
+android.permission.WRITE_HISTORY_BOOKMARKS
+允许应用写（非读）用户的浏览器历史和书签
+
+android.permission.WRITE_OWNER_DATA
+允许一个程序写入但不读取所有者数据
+
+android.permission.WRITE_SECURE_SETTINGS
+允许应用写或读当前系统设置
+
+android.permission.WRITE_SETTINGS
+允许程序读取或写入系统设置
+
+android.permission.WRITE_SMS
+允许程序写短信
+
+android.permission.WRITE_SYNC_SETTINGS
+允许程序写入同步设置</code></pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/donate/wechatpay.png" alt="Ruffianjiang 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/donate/alipay.png" alt="Ruffianjiang 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Ruffianjiang
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://lossingdawn.top/p/zh-CN/50489.html" title="Uses-Permission权限列表">https://lossingdawn.top/p/zh-CN/50489.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/3615.html" rel="prev" title="delegate委托的例子，实现对Form中控件的更新">
+                  <i class="fa fa-chevron-left"></i> delegate委托的例子，实现对Form中控件的更新
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/zh-CN/57847.html" rel="next" title="Android 设置 横屏 竖屏">
+                  Android 设置 横屏 竖屏 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zNzA2NC8xMzYwMA=="></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ruffianjiang</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4.8.3/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4.9.2/dist/instantsearch.production.min.js"></script><script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "p/zh-CN/50489.html"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
